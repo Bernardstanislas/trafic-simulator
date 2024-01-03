@@ -1,3 +1,4 @@
+import { GraphEditor } from './graph-editor';
 import { Graph } from './math/graph';
 import { Point } from './math/primitives/point';
 import { Segment } from './math/primitives/segment';
@@ -22,26 +23,28 @@ const s2 = new Segment(p1, p3);
 const s3 = new Segment(p1, p4);
 
 const graph = new Graph([p1, p2, p3, p4], [s1, s2, s3]);
-graph.draw(ctx);
+const graphEditor = new GraphEditor(myCanvas, graph);
 
-const redrawGraph= () => {
+
+const animate = () => {
   ctx.clearRect(0, 0, myCanvas.width, myCanvas.height);
-  graph.draw(ctx);
+  graphEditor.display();
+  requestAnimationFrame(animate);
 }
+
+animate();
 
 const addRandomPoint = () => {
     const x = Math.random() * myCanvas.width;
     const y = Math.random() * myCanvas.height;
     const p = new Point(x, y);
     graph.tryAddPoint(p);
-    redrawGraph();
 }
 
 const addRandomSegment = () => {
     const index1 = Math.floor(Math.random() * graph.points.length);
     const index2 = Math.floor(Math.random() * graph.points.length);
     graph.tryAddSegment(index1, index2);
-    redrawGraph();
 }
 
 const removeRandomPoint = () => {
@@ -51,7 +54,6 @@ const removeRandomPoint = () => {
   }
   const index = Math.floor(Math.random() * graph.points.length);
   graph.removePoint(graph.points[index]);
-  redrawGraph();
 }
 
 const removeRandomSegment = () => {
@@ -61,12 +63,10 @@ const removeRandomSegment = () => {
   }
   const index = Math.floor(Math.random() * graph.segments.length);
   graph.removeSegment(graph.segments[index]);
-    redrawGraph();
 }
 
 const removeAll = () => {
   graph.dispose();
-  redrawGraph();
 }
 
 declare global {
