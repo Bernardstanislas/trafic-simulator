@@ -12,4 +12,16 @@ export class Segment implements Drawable {
         context.lineTo(this.point2.x, this.point2.y);
         context.stroke();
     }
+
+    equals(segment: Segment) {
+        return this.includes(segment.point1) && this.includes(segment.point2);
+    }
+
+    get null() {
+        return this.point1.equals(this.point2);
+    }
+
+    private includes(point: Point) {
+        return this.point1.equals(point) || this.point2.equals(point);
+    }
 }

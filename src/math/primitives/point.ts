@@ -11,4 +11,7 @@ export class Point implements Drawable {
         context.fill();
     }
 
+    equals(point: Point) {
+        return this.x === point.x && this.y === point.y;
+    }
 }
