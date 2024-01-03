@@ -21,7 +21,7 @@ export class Segment implements Drawable {
         return this.point1.equals(this.point2);
     }
 
-    private includes(point: Point) {
+    includes(point: Point) {
         return this.point1.equals(point) || this.point2.equals(point);
     }
 }

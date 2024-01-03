@@ -37,6 +37,24 @@ export class Graph {
         return false;
     }
 
+    removeSegment(segment: Segment) {
+        const index = this.segments.findIndex(s => s.equals(segment));
+        if (index !== -1) {
+            this.segments.splice(index, 1);
+        }
+    }
+
+    removePoint(point: Point) {
+        const index = this.points.findIndex(s => s.equals(point));
+        if (index !== -1) {
+            this.points.splice(index, 1);
+        }
+        const segmentsToRemove = this.segments.filter(segment => segment.includes(point));
+        for (const segment of segmentsToRemove) {
+            this.removeSegment(segment);
+        }
+    }
+
     private containsSegment(segment: Segment) {
         return this.segments.some(s => s.equals(segment));
     }

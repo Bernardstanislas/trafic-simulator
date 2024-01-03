@@ -24,26 +24,53 @@ const s3 = new Segment(p1, p4);
 const graph = new Graph([p1, p2, p3, p4], [s1, s2, s3]);
 graph.draw(ctx);
 
+const redrawGraph= () => {
+  ctx.clearRect(0, 0, myCanvas.width, myCanvas.height);
+  graph.draw(ctx);
+}
+
 const addRandomPoint = () => {
     const x = Math.random() * myCanvas.width;
     const y = Math.random() * myCanvas.height;
     const p = new Point(x, y);
     graph.tryAddPoint(p);
-    ctx.clearRect(0, 0, myCanvas.width, myCanvas.height);
-    graph.draw(ctx);
+    redrawGraph();
 }
 
 const addRandomSegment = () => {
     const index1 = Math.floor(Math.random() * graph.points.length);
     const index2 = Math.floor(Math.random() * graph.points.length);
     graph.tryAddSegment(index1, index2);
-    ctx.clearRect(0, 0, myCanvas.width, myCanvas.height);
-    graph.draw(ctx);
+    redrawGraph();
+}
+
+const removeRandomPoint = () => {
+  if (graph.points.length === 0) {
+    console.log('No point to remove');
+    return;
+  }
+  const index = Math.floor(Math.random() * graph.points.length);
+  graph.removePoint(graph.points[index]);
+  redrawGraph();
+}
+
+const removeRandomSegment = () => {
+  if (graph.segments.length === 0) {
+    console.log('No segment to remove');
+    return;
+  }
+  const index = Math.floor(Math.random() * graph.segments.length);
+  graph.removeSegment(graph.segments[index]);
+    redrawGraph();
 }
 
 declare global {
   function addRandomPoint(): void;
   function addRandomSegment(): void;
+  function removeRandomPoint(): void;
+  function removeRandomSegment(): void;
 }
 globalThis.addRandomPoint = addRandomPoint;
 globalThis.addRandomSegment = addRandomSegment;
+globalThis.removeRandomPoint = removeRandomPoint;
+globalThis.removeRandomSegment = removeRandomSegment;
