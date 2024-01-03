@@ -64,13 +64,20 @@ const removeRandomSegment = () => {
     redrawGraph();
 }
 
+const removeAll = () => {
+  graph.dispose();
+  redrawGraph();
+}
+
 declare global {
   function addRandomPoint(): void;
   function addRandomSegment(): void;
   function removeRandomPoint(): void;
   function removeRandomSegment(): void;
+  function removeAll(): void;
 }
 globalThis.addRandomPoint = addRandomPoint;
 globalThis.addRandomSegment = addRandomSegment;
 globalThis.removeRandomPoint = removeRandomPoint;
 globalThis.removeRandomSegment = removeRandomSegment;
+globalThis.removeAll = removeAll;

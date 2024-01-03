@@ -55,6 +55,11 @@ export class Graph {
         }
     }
 
+    dispose() {
+        this.points.length = 0;
+        this.segments.length = 0;
+    }
+
     private containsSegment(segment: Segment) {
         return this.segments.some(s => s.equals(segment));
     }
