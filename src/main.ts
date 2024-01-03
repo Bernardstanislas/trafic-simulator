@@ -23,3 +23,17 @@ const s3 = new Segment(p1, p4);
 
 const graph = new Graph([p1, p2, p3, p4], [s1, s2, s3]);
 graph.draw(ctx);
+
+export const addRandomPoint = () => {
+    const x = Math.random() * myCanvas.width;
+    const y = Math.random() * myCanvas.height;
+    const p = new Point(x, y);
+    graph.addPoint(p);
+    ctx.clearRect(0, 0, myCanvas.width, myCanvas.height);
+    graph.draw(ctx);
+}
+
+declare global {
+  function addRandomPoint(point: Point): void;
+}
+globalThis.addRandomPoint = addRandomPoint;
