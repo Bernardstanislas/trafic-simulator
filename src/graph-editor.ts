@@ -25,7 +25,7 @@ export class GraphEditor {
     display() {
         this.graph.draw(this.context);
         if (this.selected) {
-            this.selected.draw(this.context, 10, "red");
+            this.selected.draw(this.context, {outline: true});
         }
     }
 }
